@@ -1,3 +1,2 @@
 # Association Web App
-Flask app for CENG599 2023-2024 Spring Semester
-Copyright Burhan Bahçecioğlu
+Association Flask app for CENG599 Term Project METU 2023-2024 Spring Semester
