@@ -1,0 +1,47 @@
+{% extends "base_table.html" %}
+
+{% block title %}Item Sets{% endblock %}
+
+{% block page_content %}
+    <table id="data" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Store</th>
+                <th>Description</th>
+                <th>Area</th>
+                <th>Segment</th>
+                <th>Items</th>
+                <th>Freq</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in item_sets %}
+                <tr>
+                    <td>{{ item.store_id }}</td>
+                    <td>{{ item.store_description_en }}</td>
+                    <td>{{ item.area }}</td>
+                    <td>{{ item.segment_en }}</td>
+                    <td>{{ item.items }}</td>
+                    <td>{{ item.freq }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block page_scripts %}
+    <script>
+        $(document).ready(function () {
+            $('#data').DataTable({
+                columns: [
+                    { orderable: true, searchable: true },
+                    { orderable: true, searchable: true },
+                    { orderable: true, searchable: true },
+                    { orderable: true, searchable: true },
+                    { orderable: false, searchable: false },
+                    { orderable: true, searchable: false }
+                ],
+            });
+        });
+    </script>
+{% endblock %}

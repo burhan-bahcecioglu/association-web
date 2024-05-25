@@ -1,0 +1,141 @@
+{% extends "base_home.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <title>Understanding the Apriori Algorithm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        p, ul {
+            color: #555;
+        }
+        ul {
+            margin: 0 0 1em 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Understanding the Apriori Algorithm</h1>
+        <p>The Apriori algorithm is a foundational method used in data mining for extracting frequent itemsets and generating association rules from a large dataset. It is particularly useful in market basket analysis, helping businesses understand the relationships between products purchased together.</p>
+
+        <h2>Key Concepts</h2>
+        <ul>
+            <li><strong>Frequent Itemsets</strong>: These are groups of items that appear frequently together in a dataset.</li>
+            <li><strong>Association Rules</strong>: These are implications of the form <code>A => B</code>, indicating that if item A is purchased, item B is likely to be purchased as well.</li>
+        </ul>
+
+        <h2>How the Apriori Algorithm Works</h2>
+        <p>The Apriori algorithm operates on the principle that any subset of a frequent itemset must also be frequent. This is known as the <strong>downward closure property</strong> or <strong>Apriori property</strong>.</p>
+
+        <h3>Steps of the Apriori Algorithm</h3>
+        <ol>
+            <li><strong>Generate Candidate Itemsets</strong>: Start with single items (1-itemsets) and generate candidate itemsets of increasing length (2-itemsets, 3-itemsets, etc.).</li>
+            <li><strong>Prune Infrequent Itemsets</strong>: At each step, remove itemsets that do not meet the minimum support threshold. The support of an itemset is the fraction of transactions in the dataset that contain the itemset.</li>
+            <li><strong>Generate Frequent Itemsets</strong>: Retain only those itemsets that have support greater than or equal to the minimum support threshold.</li>
+            <li><strong>Generate Association Rules</strong>: From the frequent itemsets, generate rules that meet the minimum confidence threshold. Confidence is the probability that a transaction containing item A also contains item B.</li>
+        </ol>
+
+        <h3>Example</h3>
+        <p>Consider a small dataset of transactions:</p>
+        <ul>
+            <li><code>T1: {bread, milk}</code></li>
+            <li><code>T2: {bread, diaper, beer, eggs}</code></li>
+            <li><code>T3: {milk, diaper, beer, cola}</code></li>
+            <li><code>T4: {bread, milk, diaper, beer}</code></li>
+            <li><code>T5: {bread, milk, diaper, cola}</code></li>
+        </ul>
+
+        <p><strong>Step 1: Generate Candidate 1-Itemsets</strong>:</p>
+        <ul>
+            <li>{bread}, {milk}, {diaper}, {beer}, {eggs}, {cola}</li>
+        </ul>
+
+        <p><strong>Step 2: Prune Infrequent 1-Itemsets</strong>:</p>
+        <p>Assume the minimum support threshold is 3. Calculate support:</p>
+        <ul>
+            <li>{bread}: 4</li>
+            <li>{milk}: 4</li>
+            <li>{diaper}: 4</li>
+            <li>{beer}: 3</li>
+            <li>{eggs}: 1 (pruned)</li>
+            <li>{cola}: 2 (pruned)</li>
+        </ul>
+
+        <p><strong>Step 3: Generate Candidate 2-Itemsets</strong>:</p>
+        <ul>
+            <li>{bread, milk}, {bread, diaper}, {bread, beer}, {milk, diaper}, {milk, beer}, {diaper, beer}</li>
+        </ul>
+
+        <p><strong>Step 4: Prune Infrequent 2-Itemsets</strong>:</p>
+        <p>Calculate support and prune based on minimum support threshold:</p>
+        <ul>
+            <li>{bread, milk}: 3</li>
+            <li>{bread, diaper}: 3</li>
+            <li>{bread, beer}: 2 (pruned)</li>
+            <li>{milk, diaper}: 3</li>
+            <li>{milk, beer}: 2 (pruned)</li>
+            <li>{diaper, beer}: 3</li>
+        </ul>
+
+        <p><strong>Step 5: Generate Frequent 3-Itemsets</strong>:</p>
+        <ul>
+            <li>{bread, milk, diaper}, {bread, diaper, beer}, {milk, diaper, beer}</li>
+        </ul>
+
+        <p><strong>Step 6: Prune Infrequent 3-Itemsets</strong>:</p>
+        <ul>
+            <li>{bread, milk, diaper}: 3</li>
+            <li>Others are pruned as their support is less than 3.</li>
+        </ul>
+
+        <p><strong>Step 7: Generate Association Rules</strong>:</p>
+        <p>From {bread, milk, diaper}, possible rules:</p>
+        <ul>
+            <li>{bread, milk} => {diaper}</li>
+            <li>{bread, diaper} => {milk}</li>
+            <li>{milk, diaper} => {bread}</li>
+        </ul>
+
+        <h2>Applications</h2>
+        <ul>
+            <li><strong>Market Basket Analysis</strong>: Understanding product combinations that frequently co-occur in transactions.</li>
+            <li><strong>Customer Segmentation</strong>: Identifying groups of customers with similar buying patterns.</li>
+            <li><strong>Inventory Management</strong>: Optimizing product placement and stock based on frequently bought together items.</li>
+        </ul>
+
+        <h2>Advantages and Limitations</h2>
+        <h3>Advantages</h3>
+        <ul>
+            <li>Simple and easy to implement.</li>
+            <li>Provides clear insights into relationships between items.</li>
+        </ul>
+
+        <h3>Limitations</h3>
+        <ul>
+            <li>Can be computationally expensive for large datasets.</li>
+            <li>Generates a large number of candidate itemsets.</li>
+            <li>Requires setting appropriate support and confidence thresholds, which can be challenging.</li>
+        </ul>
+
+        <p>The Apriori algorithm is a powerful tool in the field of data mining, particularly for uncovering hidden patterns in transactional data. Understanding these patterns can lead to more informed business decisions and strategies.</p>
+    </div>
+</body>
+{% endblock %}
