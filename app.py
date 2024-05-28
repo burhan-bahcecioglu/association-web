@@ -6,7 +6,7 @@ from mongoengine import fields, Document, connect, DynamicDocument
 app = Flask(__name__, template_folder="templates")
 
 app.config["MONGODB_SETTINGS"] = {
-    "db": "association_test",
+    "db": "association_prod",
     "host": os.getenv("MONGODB_HOST"),
 }
 connect(**app.config["MONGODB_SETTINGS"])
@@ -17,8 +17,8 @@ class Rules(Document):
     store_description_en = fields.StringField()
     area = fields.IntField()
     segment_en = fields.StringField()
-    antecedent = fields.ListField(fields.IntField())
-    consequent = fields.ListField(fields.IntField())
+    antecedent = fields.ListField(fields.StringField())
+    consequent = fields.ListField(fields.StringField())
     confidence = fields.FloatField()
     lift = fields.FloatField()
     support = fields.FloatField()
@@ -29,7 +29,7 @@ class ItemSets(Document):
     store_description_en = fields.StringField()
     area = fields.IntField()
     segment_en = fields.StringField()
-    items = fields.ListField(fields.IntField())
+    items = fields.ListField(fields.StringField())
     freq = fields.ListField(fields.IntField())
 
 
